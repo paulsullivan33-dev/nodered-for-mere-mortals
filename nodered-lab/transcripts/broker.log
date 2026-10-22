@@ -1,0 +1,19 @@
+lab broker listening on 127.0.0.1:1883
+broker saw client connect: mqttjs_656dfe98
+broker saw subscribe: porch/light
+broker saw publish: porch/light -> from-outside
+broker saw client connect: nodered8f9d042e84611cf0
+broker saw subscribe: porch/light
+broker saw publish: porch/light -> on
+broker saw publish: porch/light -> off
+broker saw client connect: nodered2afb250fd03fd492
+broker saw subscribe: porch/light
+broker saw publish: porch/light -> on
+broker saw client connect: noderedfc0168f6d58d8826
+broker saw subscribe: porch/light
+broker saw client connect: nodered6e34433de31f843d
+broker saw subscribe: porch/light
+broker saw client connect: nodered3fe23cfc5b2db55b
+broker saw subscribe: porch/light
+broker saw client connect: nodered0c94b2f4d7f7f283
+broker saw subscribe: porch/light

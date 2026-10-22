@@ -1,0 +1,3 @@
+after systemctl restart: is-active=active
+presses (persistent context): {"presses":2}
+hello: {"message":"Hello, Robin!","servedBy":"Node-RED","when":"2026-10-22T23:45:41.395Z"}

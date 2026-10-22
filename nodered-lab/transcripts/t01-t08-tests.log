@@ -1,0 +1,27 @@
+== T01 inject -> debug (timestamp)
+OK [HTTP 200]
+== T02 inject -> debug (whole message)
+OK [HTTP 200]
+== T03 HTTP in/out /hello
+{"message":"Hello, Robin!","servedBy":"Node-RED","when":"2026-10-22T23:40:52.206Z"}
+{"message":"Hello, stranger!","servedBy":"Node-RED","when":"2026-10-22T23:40:52.218Z"}
+== T04 function transform (inject sentence)
+OK [HTTP 200]
+== T05 file write (inject note x2)
+OK [HTTP 200]
+OK [HTTP 200]
+-- notes.txt on disk:
+2026-10-22T23:40:52.241Z - the kettle has boiled
+2026-10-22T23:40:52.288Z - the kettle has boiled
+== T06 file read via /notes
+2026-10-22T23:40:52.241Z - the kettle has boiled
+2026-10-22T23:40:52.288Z - the kettle has boiled
+[end]
+== T07 counter (3 presses, then read)
+press 200
+press 200
+press 200
+{"presses":3}
+== T08 MQTT round trip via /porch
+{"published":"porch/light","state":"on"}
+{"published":"porch/light","state":"off"}

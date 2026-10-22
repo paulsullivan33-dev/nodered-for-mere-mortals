@@ -1,0 +1,3 @@
+== T08 redo: MQTT round trip via /porch
+{"published":"porch/light","state":"on"}
+{"published":"porch/light","state":"off"}

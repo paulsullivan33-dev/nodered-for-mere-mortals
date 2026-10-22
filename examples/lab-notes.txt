@@ -1,0 +1,71 @@
+Notes from the lab behind Node-RED for Mere Mortals
+====================================================
+
+Ran for real on the build machine, 2026-10-22:
+
+  Node-RED v5.0.9 (npm package "node-red"), Node.js v24.22.1,
+  Linux x64. Installed into a scratch folder with
+  `npm install node-red`, run as
+  `./node_modules/.bin/node-red -u userdir`.
+  (The guide's install chapter also covers the global
+  `npm install -g node-red` route the project documents.)
+
+  Transcripts live in ../nodered-lab/transcripts/.
+
+Flows: 37 nodes across six tabs, exported as lab-flows.json
+in this folder. The two file nodes used an absolute path in
+the lab (/home/hatch/workspace/nodered-lab/notes.txt); the
+export changes them to plain "notes.txt", which Node-RED
+resolves against the folder it was started from. The flows
+were deployed with the Admin API (POST /flows, full deploy,
+HTTP 204) - the same API the editor's Deploy button uses -
+and every test was driven from curl.
+
+Tests that passed (transcripts t01-t08, t08-mqtt):
+  inject -> debug, payload and whole-message forms
+  GET /hello?name=Robin -> JSON greeting; no name -> "stranger"
+  function node: sentence -> { original, SHOUTED, word count }
+  file write: two timestamped lines appended, read from disk
+  file read: GET /notes returns the file's contents
+  flow context counter: 3 presses, read back over HTTP
+  MQTT: /porch?state=on|off -> publish porch/light -> the
+  same flow's mqtt-in node received it -> debug printed it;
+  an independent mqtt.js client also round-tripped the broker
+
+Restarts (t09, t10, t11):
+  flows.json (37 nodes) survived every restart untouched;
+  the memory context store forgot the counter (3 -> 0);
+  after switching contextStorage to localfilesystem the
+  counter survived two more restarts (2 -> 2), including
+  one `systemctl restart` of the service unit.
+
+Security (t10):
+  with adminAuth set: GET /flows answers 401 without a
+  token and 401 for a wrong password; POST /auth/token
+  with the right password returns a Bearer token (the
+  request must name client_id "node-red-editor"); the
+  token reads all 37 flows and fires inject buttons.
+
+MQTT broker detour: the sandbox's apt could not locate the
+mosquitto packages (apt-mosquitto.log), so the lab broker
+is aedes 1.2.0 (broker.js in this folder). aedes 1.x
+changed its API - require('aedes')() throws "not a
+function"; Aedes.createBroker() is the current shape.
+The first, wrong-shaped broker accepted TCP connections
+but never finished an MQTT handshake, which is where
+Node-RED's repeating log line
+  [mqtt-broker:Lab broker] Connection failed to broker
+came from - three of them are in nodered-run1.log.
+
+Settings gotcha (in nodered-run3's log, kept out of the
+repo transcripts): a hand-written minimal settings.js
+that omits flowFile makes Node-RED invent
+flows_<hostname>.json and start empty. The flows were
+never deleted; flows.json was still on disk. Adding
+flowFile: "flows.json" back fixed it. Chapter 12 tells
+this story in full.
+
+Fixtures: the greeting name "Robin", the sentence "the
+porch light is on", the note "the kettle has boiled" and
+the admin password are invented for the lab. The password
+hash and access tokens are not in any file in this repo.

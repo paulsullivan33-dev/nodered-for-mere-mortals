@@ -1,0 +1,5 @@
+token acquired (len 172)
+GET /flows with token: 37 nodes
+press 1: HTTP 200
+press 2: HTTP 200
+presses before restart 3: {"presses":2}

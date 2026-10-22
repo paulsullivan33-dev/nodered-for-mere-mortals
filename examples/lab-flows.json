@@ -1,0 +1,655 @@
+[
+  {
+    "id": "tab1",
+    "type": "tab",
+    "label": "1 First steps",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "inj_now",
+    "type": "inject",
+    "z": "tab1",
+    "name": "Press me",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "button",
+    "payload": "",
+    "payloadType": "date",
+    "x": 150,
+    "y": 80,
+    "wires": [
+      [
+        "dbg_now"
+      ]
+    ]
+  },
+  {
+    "id": "dbg_now",
+    "type": "debug",
+    "z": "tab1",
+    "name": "See the timestamp",
+    "active": true,
+    "tosidebar": true,
+    "console": "true",
+    "tostatus": true,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 380,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "inj_msg",
+    "type": "inject",
+    "z": "tab1",
+    "name": "A message by hand",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "greeting",
+    "payload": "hello from the inject node",
+    "payloadType": "str",
+    "x": 150,
+    "y": 140,
+    "wires": [
+      [
+        "dbg_full"
+      ]
+    ]
+  },
+  {
+    "id": "dbg_full",
+    "type": "debug",
+    "z": "tab1",
+    "name": "The whole message",
+    "active": true,
+    "tosidebar": true,
+    "console": "true",
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 380,
+    "y": 140,
+    "wires": []
+  },
+  {
+    "id": "tab2",
+    "type": "tab",
+    "label": "2 A small web service",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "http_hello",
+    "type": "http in",
+    "z": "tab2",
+    "name": "",
+    "url": "/hello",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 150,
+    "y": 80,
+    "wires": [
+      [
+        "fn_hello"
+      ]
+    ]
+  },
+  {
+    "id": "fn_hello",
+    "type": "function",
+    "z": "tab2",
+    "name": "Build the greeting",
+    "func": "const name = (msg.req.query.name || \"stranger\");\nmsg.payload = {\n    message: \"Hello, \" + name + \"!\",\n    servedBy: \"Node-RED\",\n    when: new Date().toISOString()\n};\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 380,
+    "y": 80,
+    "wires": [
+      [
+        "http_resp_hello"
+      ]
+    ]
+  },
+  {
+    "id": "http_resp_hello",
+    "type": "http response",
+    "z": "tab2",
+    "name": "",
+    "statusCode": "",
+    "headers": {},
+    "x": 590,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "tab3",
+    "type": "tab",
+    "label": "3 Working on the message",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "inj_sentence",
+    "type": "inject",
+    "z": "tab3",
+    "name": "A sentence",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "notice",
+    "payload": "the porch light is on",
+    "payloadType": "str",
+    "x": 150,
+    "y": 80,
+    "wires": [
+      [
+        "fn_shout"
+      ]
+    ]
+  },
+  {
+    "id": "fn_shout",
+    "type": "function",
+    "z": "tab3",
+    "name": "Shout and count",
+    "func": "const text = String(msg.payload);\nmsg.payload = {\n    original: text,\n    shouted: text.toUpperCase(),\n    words: text.trim().split(/\\s+/).length\n};\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 380,
+    "y": 80,
+    "wires": [
+      [
+        "dbg_shout"
+      ]
+    ]
+  },
+  {
+    "id": "dbg_shout",
+    "type": "debug",
+    "z": "tab3",
+    "name": "Before and after",
+    "active": true,
+    "tosidebar": true,
+    "console": "true",
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 600,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "tab4",
+    "type": "tab",
+    "label": "4 Writing and reading files",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "inj_note",
+    "type": "inject",
+    "z": "tab4",
+    "name": "Write a note",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "note",
+    "payload": "the kettle has boiled",
+    "payloadType": "str",
+    "x": 150,
+    "y": 80,
+    "wires": [
+      [
+        "fn_note"
+      ]
+    ]
+  },
+  {
+    "id": "fn_note",
+    "type": "function",
+    "z": "tab4",
+    "name": "Stamp the note",
+    "func": "msg.payload = new Date().toISOString() + \" - \" + msg.payload;\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 360,
+    "y": 80,
+    "wires": [
+      [
+        "file_out_note"
+      ]
+    ]
+  },
+  {
+    "id": "file_out_note",
+    "type": "file",
+    "z": "tab4",
+    "name": "Notes file",
+    "filename": "notes.txt",
+    "filenameType": "str",
+    "appendNewline": true,
+    "createDir": true,
+    "overwriteFile": "false",
+    "encoding": "utf8",
+    "x": 580,
+    "y": 80,
+    "wires": [
+      [
+        "dbg_note"
+      ]
+    ]
+  },
+  {
+    "id": "dbg_note",
+    "type": "debug",
+    "z": "tab4",
+    "name": "What was written",
+    "active": true,
+    "tosidebar": true,
+    "console": "true",
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 770,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "http_note",
+    "type": "http in",
+    "z": "tab4",
+    "name": "",
+    "url": "/notes",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 150,
+    "y": 160,
+    "wires": [
+      [
+        "file_in_note"
+      ]
+    ]
+  },
+  {
+    "id": "file_in_note",
+    "type": "file in",
+    "z": "tab4",
+    "name": "Read the notes",
+    "filename": "notes.txt",
+    "filenameType": "str",
+    "format": "utf8",
+    "chunk": false,
+    "sendError": false,
+    "encoding": "utf8",
+    "allProps": false,
+    "x": 380,
+    "y": 160,
+    "wires": [
+      [
+        "http_resp_note"
+      ]
+    ]
+  },
+  {
+    "id": "http_resp_note",
+    "type": "http response",
+    "z": "tab4",
+    "name": "",
+    "statusCode": "",
+    "headers": {
+      "content-type": "text/plain"
+    },
+    "x": 600,
+    "y": 160,
+    "wires": []
+  },
+  {
+    "id": "tab5",
+    "type": "tab",
+    "label": "5 Talking MQTT",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "broker_lab",
+    "type": "mqtt-broker",
+    "name": "Lab broker",
+    "broker": "127.0.0.1",
+    "port": "1883",
+    "clientid": "",
+    "autoConnect": true,
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true,
+    "autoUnsubscribe": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthRetain": "false",
+    "birthPayload": "",
+    "birthMsg": {},
+    "closeTopic": "",
+    "closeQos": "0",
+    "closeRetain": "false",
+    "closePayload": "",
+    "closeMsg": {},
+    "willTopic": "",
+    "willQos": "0",
+    "willRetain": "false",
+    "willPayload": "",
+    "willMsg": {},
+    "userProps": "",
+    "sessionExpiry": ""
+  },
+  {
+    "id": "http_porch",
+    "type": "http in",
+    "z": "tab5",
+    "name": "",
+    "url": "/porch",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 150,
+    "y": 80,
+    "wires": [
+      [
+        "fn_porch"
+      ]
+    ]
+  },
+  {
+    "id": "fn_porch",
+    "type": "function",
+    "z": "tab5",
+    "name": "Pick the state",
+    "func": "msg.payload = (msg.req.query.state === \"off\") ? \"off\" : \"on\";\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 360,
+    "y": 80,
+    "wires": [
+      [
+        "mqtt_porch_out",
+        "fn_porch_reply"
+      ]
+    ]
+  },
+  {
+    "id": "mqtt_porch_out",
+    "type": "mqtt out",
+    "z": "tab5",
+    "name": "Tell the porch light",
+    "topic": "porch/light",
+    "qos": "0",
+    "retain": "false",
+    "respTopic": "",
+    "contentType": "",
+    "userProps": "",
+    "correl": "",
+    "expiry": "",
+    "broker": "broker_lab",
+    "x": 590,
+    "y": 60,
+    "wires": []
+  },
+  {
+    "id": "fn_porch_reply",
+    "type": "function",
+    "z": "tab5",
+    "name": "Web answer",
+    "func": "msg.payload = { published: \"porch/light\", state: msg.payload };return msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 590,
+    "y": 120,
+    "wires": [
+      [
+        "http_resp_porch"
+      ]
+    ]
+  },
+  {
+    "id": "http_resp_porch",
+    "type": "http response",
+    "z": "tab5",
+    "name": "",
+    "statusCode": "",
+    "headers": {},
+    "x": 790,
+    "y": 120,
+    "wires": []
+  },
+  {
+    "id": "mqtt_porch_in",
+    "type": "mqtt in",
+    "z": "tab5",
+    "name": "Hear the porch light",
+    "topic": "porch/light",
+    "qos": 2,
+    "datatype": "auto-detect",
+    "broker": "broker_lab",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 150,
+    "y": 220,
+    "wires": [
+      [
+        "dbg_porch"
+      ]
+    ]
+  },
+  {
+    "id": "dbg_porch",
+    "type": "debug",
+    "z": "tab5",
+    "name": "Porch traffic",
+    "active": true,
+    "tosidebar": true,
+    "console": "true",
+    "tostatus": true,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 380,
+    "y": 220,
+    "wires": []
+  },
+  {
+    "id": "tab6",
+    "type": "tab",
+    "label": "6 Remembering things",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "inj_count",
+    "type": "inject",
+    "z": "tab6",
+    "name": "Count a press",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "press",
+    "payload": "",
+    "payloadType": "date",
+    "x": 150,
+    "y": 80,
+    "wires": [
+      [
+        "fn_count"
+      ]
+    ]
+  },
+  {
+    "id": "fn_count",
+    "type": "function",
+    "z": "tab6",
+    "name": "Add one",
+    "func": "let n = flow.get(\"presses\") || 0;\nn = n + 1;\nflow.set(\"presses\", n);\nmsg.payload = { presses: n };\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 380,
+    "y": 80,
+    "wires": [
+      [
+        "dbg_count"
+      ]
+    ]
+  },
+  {
+    "id": "dbg_count",
+    "type": "debug",
+    "z": "tab6",
+    "name": "The running total",
+    "active": true,
+    "tosidebar": true,
+    "console": "true",
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 600,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "http_count",
+    "type": "http in",
+    "z": "tab6",
+    "name": "",
+    "url": "/presses",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 150,
+    "y": 160,
+    "wires": [
+      [
+        "fn_readcount"
+      ]
+    ]
+  },
+  {
+    "id": "fn_readcount",
+    "type": "function",
+    "z": "tab6",
+    "name": "Read the total",
+    "func": "msg.payload = { presses: flow.get(\"presses\") || 0 };\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 380,
+    "y": 160,
+    "wires": [
+      [
+        "http_resp_count"
+      ]
+    ]
+  },
+  {
+    "id": "http_resp_count",
+    "type": "http response",
+    "z": "tab6",
+    "name": "",
+    "statusCode": "",
+    "headers": {},
+    "x": 600,
+    "y": 160,
+    "wires": []
+  }
+]

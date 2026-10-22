@@ -1,0 +1,6 @@
+== before restart: presses = {"presses":3}
+== after restart 1:
+flows.json on disk: 37 nodes
+{"message":"Hello, Robin!","servedBy":"Node-RED","when":"2026-10-22T23:42:25.947Z"}
+presses after restart (memory context): {"presses":0}
+{"published":"porch/light","state":"on"}

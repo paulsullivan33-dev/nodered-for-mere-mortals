@@ -1,0 +1,68 @@
+22 Oct 23:39:17 - [info] 
+
+Welcome to Node-RED
+===================
+
+22 Oct 23:39:17 - [info] Node-RED version: v5.0.9
+22 Oct 23:39:17 - [info] Node.js  version: v24.22.1
+22 Oct 23:39:17 - [info] Linux 7.0.0-39-generic x64 LE
+22 Oct 23:39:17 - [info] Loading palette nodes
+22 Oct 23:39:19 - [info] Settings file  : /home/hatch/workspace/nodered-lab/userdir/settings.js
+22 Oct 23:39:19 - [info] Context store  : 'default' [module=memory]
+22 Oct 23:39:19 - [info] User directory : /home/hatch/workspace/nodered-lab/userdir
+22 Oct 23:39:19 - [warn] Projects disabled : editorTheme.projects.enabled=false
+22 Oct 23:39:19 - [info] Flows file     : /home/hatch/workspace/nodered-lab/userdir/flows.json
+22 Oct 23:39:19 - [info] Creating new flow file
+22 Oct 23:39:19 - [warn] 
+
+---------------------------------------------------------------------
+Your flow credentials file is encrypted using a system-generated key.
+
+If the system-generated key is lost for any reason, your credentials
+file will not be recoverable, you will have to delete it and re-enter
+your credentials.
+
+You should set your own key using the 'credentialSecret' option in
+your settings file. Node-RED will then re-encrypt your credentials
+file using your chosen key the next time you deploy a change.
+---------------------------------------------------------------------
+
+22 Oct 23:39:19 - [info] Server now running at http://127.0.0.1:1880/
+22 Oct 23:39:19 - [warn] Encrypted credentials not found
+22 Oct 23:39:19 - [info] Starting flows
+22 Oct 23:39:19 - [info] Started flows
+22 Oct 23:40:42 - [info] Stopping flows
+22 Oct 23:40:42 - [info] Stopped flows
+22 Oct 23:40:42 - [info] Updated flows
+22 Oct 23:40:42 - [info] Starting flows
+22 Oct 23:40:42 - [info] Started flows
+22 Oct 23:40:52 - [info] [debug:See the timestamp] 1792712452181
+22 Oct 23:40:52 - [info] [debug:The whole message] 
+{
+  _msgid: '81c002c326361d4d',
+  payload: 'hello from the inject node',
+  topic: 'greeting'
+}
+22 Oct 23:40:52 - [info] [debug:Before and after] 
+{
+  original: 'the porch light is on',
+  shouted: 'THE PORCH LIGHT IS ON',
+  words: 5
+}
+22 Oct 23:40:52 - [info] [debug:What was written] 2026-10-22T23:40:52.241Z - the kettle has boiled
+22 Oct 23:40:52 - [info] [debug:What was written] 2026-10-22T23:40:52.288Z - the kettle has boiled
+22 Oct 23:40:53 - [info] [debug:The running total] 
+{ presses: 1 }
+22 Oct 23:40:53 - [info] [debug:The running total] 
+{ presses: 2 }
+22 Oct 23:40:53 - [info] [debug:The running total] 
+{ presses: 3 }
+22 Oct 23:41:12 - [info] [mqtt-broker:Lab broker] Connection failed to broker: mqtt://127.0.0.1:1883
+22 Oct 23:41:27 - [info] [mqtt-broker:Lab broker] Connection failed to broker: mqtt://127.0.0.1:1883
+22 Oct 23:41:42 - [info] [mqtt-broker:Lab broker] Connection failed to broker: mqtt://127.0.0.1:1883
+22 Oct 23:41:57 - [info] [mqtt-broker:Lab broker] Connected to broker: mqtt://127.0.0.1:1883
+22 Oct 23:42:02 - [info] [debug:Porch traffic] on
+22 Oct 23:42:02 - [info] [debug:Porch traffic] off
+22 Oct 23:42:16 - [info] Stopping flows
+22 Oct 23:42:16 - [info] [mqtt-broker:Lab broker] Disconnected from broker: mqtt://127.0.0.1:1883
+22 Oct 23:42:16 - [info] Stopped flows
